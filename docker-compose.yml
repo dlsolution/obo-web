@@ -1,0 +1,22 @@
+version: '3.9'
+services: 
+  mysql:
+    image: mysql:latest
+    ports: 
+      - "3306:3306"
+    volumes: 
+      - ./obo.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: obo
+  web:
+    image: duylinh158/techmaster-obo-web:1.2
+    ports: 
+      - "8080:8080"
+    environment:
+      DB_HOST: 192.168.1.8
+      DB_PORT: 3306
+      DB_NAME: obo
+      DB_USER: root
+      DB_PASSWORD: 123
+    restart: always
